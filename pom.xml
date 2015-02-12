@@ -24,7 +24,62 @@
   </dependencies>
   <build>
     <plugins>
-      <plugin>
+<plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>appassembler-maven-plugin</artifactId>
+        <version>1.9</version>
+        <configuration>
+          <!-- Set the target configuration directory to be used in the bin scripts -->
+          <configurationDirectory>conf</configurationDirectory>
+          <!-- Copy the contents from "/src/main/config" to the target
+               configuration directory in the assembled application -->
+          <copyConfigurationDirectory>true</copyConfigurationDirectory>
+          <!-- Include the target configuration directory in the beginning of
+               the classpath declaration in the bin scripts -->
+          <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+          <!-- set alternative assemble directory -->
+          <assembleDirectory>${project.build.directory}/mycompany-assemble</assembleDirectory>
+          <!-- Extra JVM arguments that will be included in the bin scripts -->
+          <extraJvmArguments>-Xms128m</extraJvmArguments>
+          <!-- Generate bin scripts for windows and unix pr default -->
+          <platforms>
+            <platform>windows</platform>
+            <platform>unix</platform>
+          </platforms>
+          <programs>
+            <program>
+              <mainClass>com.mycompany.app.WindowsApp1</mainClass>
+              <id>app1</id>
+              <!-- Only generate windows bat script for this application -->
+              <platforms>
+                <platform>windows</platform>
+              </platforms>
+            </program>
+            <program>
+              <mainClass>com.mycompany.app.UnixApp2</mainClass>
+              <id>app2</id>
+              <!-- Only generate unix shell script for this application -->
+              <platforms>
+                <platform>unix</platform>
+              </platforms>
+            </program>
+            <program>
+              <mainClass>com.mycompany.app.App3</mainClass>
+              <commandLineArguments>
+                <!-- Add two predefined command line arguments to the call of App3 -->
+                <commandLineArgument>arg1</commandLineArgument>
+                <commandLineArgument>arg2</commandLineArgument>
+              </commandLineArguments>
+              <id>app3</id>
+            </program>
+            <program>
+              <mainClass>com.mycompany.app.App4</mainClass>
+              <id>app4</id>
+            </program>
+          </programs>
+        </configuration>
+      </plugin>
+      <!--<plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>appassembler-maven-plugin</artifactId>
         <version>1.9</version>
@@ -36,7 +91,7 @@
             </program>
           </programs>
         </configuration>
-      </plugin>
+      </plugin>-->
     </plugins>
   </build>
 </project>
