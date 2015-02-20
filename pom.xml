@@ -13,8 +13,12 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+    <maven-compiler-plugin-version>3.1</maven-compiler-plugin-version>
     <maven-assembly-plugin-version>2.5.3</maven-assembly-plugin-version>
     <appassembler-maven-plugin-version>1.9</appassembler-maven-plugin-version>
+    <!-- JAVA Versions -->
+    <source-java-version>1.8</source-java-version>
+    <target-java-version>1.8</target-java-version>
   </properties>
 
   <dependencies>
@@ -27,6 +31,16 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin-version}</version>
+        <configuration>
+          <source>${source-java-version}</source>
+          <target>${target-java-version}</target>
+        </configuration>
+      </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
