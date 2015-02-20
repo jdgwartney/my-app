@@ -12,6 +12,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+    <maven-assembly-plugin-version>2.5.3</maven-assembly-plugin-version>
+    <appassembler-maven-plugin-version>1.9</appassembler-maven-plugin-version>
   </properties>
 
   <dependencies>
@@ -25,12 +28,22 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven-assembly-plugin-version}</version>
+        <configuration>
+          <descriptors>
+             <descriptor>src/main/assembly/app.xml</descriptor>
+          </descriptors>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>appassembler-maven-plugin</artifactId>
-        <version>1.9</version>
+        <version>${appassembler-maven-plugin-version}</version>
         <configuration>
           <!-- Set the target configuration directory to be used in the bin scripts -->
-          <configurationDirectory>conf</configurationDirectory>
+          <configurationDirectory>etc</configurationDirectory>
           <!-- Copy the contents from "/src/main/config" to the target
                configuration directory in the assembled application -->
           <copyConfigurationDirectory>true</copyConfigurationDirectory>
@@ -77,6 +90,28 @@
               <id>app4</id>
             </program>
           </programs>
+          <daemons>
+            <daemon>
+              <id>daemon-1</id>
+              <mainClass>com.mycompany.app.App4</mainClass>
+              <generatorConfigurations>
+                <generatorConfiguration>
+                  <generator>jsw</generator>
+                  <includes>
+                    <include>linux-x86-32</include>
+                    <include>linux-x86-64</include>
+                    <include>windows-x86-32</include>
+                    <include>windows-x86-64</include>
+                    <include>macosx-universal-32</include>
+                    <include>macosx-universal-64</include>
+                  </includes>
+                </generatorConfiguration>
+              </generatorConfigurations>
+              <platforms>
+                <platform>jsw</platform>
+              </platforms>
+            </daemon>
+          </daemons>
         </configuration>
       </plugin>
       <!--<plugin>
