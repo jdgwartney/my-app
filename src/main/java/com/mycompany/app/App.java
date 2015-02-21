@@ -14,19 +14,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 public class App {
-	public static void main(String[] args) throws InterruptedException, URISyntaxException {
+	
+	private String message;
+	
+	public App(String message) {
+		this.message = message;
+	}
+	
+	public void execute(String [] args) throws InterruptedException, URISyntaxException {
+
 		long count = 1;
 		Configuration configuration = load("META-INF/json/configuration.json");
 		while(true) {
-			System.out.printf("Hello World!-%s%n",count++);
+			System.out.printf("%s-%s%n",this.message,count++);
 			Thread.sleep(configuration.getSleepDelay());
 		}
 	}
+	public static void main(String[] args) throws InterruptedException, URISyntaxException {
+		App app = new App("HelloWorld!");
+		app.execute(args);
+	}
 	
-	public static Configuration load(String resource) throws URISyntaxException {
-		Configuration instance = new Configuration();
+	public Configuration load(String resource) throws URISyntaxException {
+		Configuration instance = null;
 
-		ClassLoader classLoader = instance.getClass().getClassLoader();
+		ClassLoader classLoader = this.getClass().getClassLoader();
 		URL url = classLoader.getResource(resource);
 		File file = new File(url.toURI());
 
