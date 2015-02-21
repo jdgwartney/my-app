@@ -16,13 +16,43 @@
     </dependencySets>
     <files>
       <file>
-        <source>target/mycompany-assemble/bin/app3</source>
+        <source>src/main/scripts/env.sh</source>
         <outputDirectory>bin</outputDirectory>
         <fileMode>0755</fileMode>
       </file>
+<!--
+      <file>
+        <source>target/app</source>
+        <outputDirectory>bin</outputDirectory>
+        <fileMode>0755</fileMode>
+      </file>
+-->
     </files>
     <fileSets>
       <fileSet>
+        <directory>${project.build.directory}/bin</directory>
+        <outputDirectory>bin</outputDirectory>
+        <fileMode>0755</fileMode>
+<!--
+        <filtered>true</filtered>
+        <includes>
+          <include>syslog.*</include>
+          <include>snmp.*</include>
+        </includes>
+        <excludes>
+          <exclude>syslog.event.properties</exclude>
+        </excludes>
+-->
+      </fileSet>
+      <fileSet>
+        <directory>${project.build.directory}/log</directory>
+        <outputDirectory>log</outputDirectory>
+        <fileMode>0755</fileMode>
+      </fileSet>
+      <fileSet>
+        <directory>${project.build.directory}/etc</directory>
+        <outputDirectory>etc</outputDirectory>
+        <fileMode>0755</fileMode>
       </fileSet>
     </fileSets>
 </assembly>
